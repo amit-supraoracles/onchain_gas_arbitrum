@@ -15,7 +15,7 @@ library ChainSpecificUtil {
   uint256 private constant ARB_MAINNET_CHAIN_ID = 42161;
   uint256 private constant ARB_GOERLI_TESTNET_CHAIN_ID = 421613;
 
-  function getBlockhash(uint64 blockNumber) internal view returns (bytes32) {
+  function getBlockhash(uint64 blockNumber) public view returns (bytes32) {
     uint256 chainid = block.chainid;
     if (chainid == ARB_MAINNET_CHAIN_ID || chainid == ARB_GOERLI_TESTNET_CHAIN_ID) {
       if ((getBlockNumber() - blockNumber) > 256 || blockNumber >= getBlockNumber()) {
@@ -26,7 +26,7 @@ library ChainSpecificUtil {
     return blockhash(blockNumber);
   }
 
-  function getBlockNumber() internal view returns (uint256) {
+  function getBlockNumber() public view returns (uint256) {
     uint256 chainid = block.chainid;
     if (chainid == ARB_MAINNET_CHAIN_ID || chainid == ARB_GOERLI_TESTNET_CHAIN_ID) {
       return ARBSYS.arbBlockNumber();
@@ -34,7 +34,7 @@ library ChainSpecificUtil {
     return block.number;
   }
 
-  function getCurrentTxL1GasFees() internal view returns (uint256) {
+  function getCurrentTxL1GasFees() public view returns (uint256) {
     uint256 chainid = block.chainid;
     if (chainid == ARB_MAINNET_CHAIN_ID || chainid == ARB_GOERLI_TESTNET_CHAIN_ID) {
       return ARBGAS.getCurrentTxL1GasFees();
